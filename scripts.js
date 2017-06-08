@@ -64,7 +64,7 @@ function update() {
   plot.setupGrid();
 
   plot.draw();
-  setTimeout(update, 30);
+  setTimeout(update, 100);
 }
 
 
@@ -124,9 +124,6 @@ function startGame() {
     seconds = $("#timeInput").val();
     if(currentPoint != 0){
       currentData= addDataPoint(currentData, 0);
-      attempts++;
-      $("#statsAttempts").html(attempts);
-      average = (average * (attempts-1) + currentPoint) / attempts;
     }
     currentPoint = 0;
     updateLastDataPoint(currentData, currentPoint);
@@ -160,8 +157,10 @@ function registerKeypress(key){
     if(!$('#freePlay')[0].checked) {
       var tempPoint = currentPoint;
       seconds = 0;
-      removeSecond();
+      currentLetter = "";
+      updateLastDataPoint(currentData, currentPoint);
       clearInterval(interval);
+      $("#gameText").text("Press Space to Begin");
       if(tempPoint > 0) {
         recordGame(true);
       }
@@ -195,9 +194,12 @@ function recordGame(broke) {
     breaks++;
   }
   if(currentPoint > best) {
-    best = currentPoint
+    best = currentPoint;
   }
-  average = (average * (attempts-1) + currentPoint) / attempts;
+  attempts++;
+      
+  console.log(average, attempts, currentPoint);
+  average = ((average * (attempts-1)) + currentPoint) / attempts;
   var lastFive = currentData.filter(function(val){return val != 0;})
   lastFive = lastFive.slice(Math.max(lastFive.length - 5, 0));
   var lastFiveSum = 0;
@@ -206,5 +208,6 @@ function recordGame(broke) {
   }
   $("#statsBest").html(best);
   $("#statsAverage").html(average.toFixed(1) + "<br>(Last 5: " + (lastFiveSum/lastFive.length).toFixed(1) + ")");
+  $("#statsAttempts").html(attempts);
   $("#statsBreaks").html(breaks + "<br>(" + Math.round(breaks / attempts * 100) + "%)")
 }
