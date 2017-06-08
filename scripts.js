@@ -194,6 +194,9 @@ function recordGame(broke) {
   if(broke) {
     breaks++;
   }
+  if(currentPoint > best) {
+    best = currentPoint
+  }
   average = (average * (attempts-1) + currentPoint) / attempts;
   var lastFive = currentData.filter(function(val){return val != 0;})
   lastFive = lastFive.slice(Math.max(lastFive.length - 5, 0));
@@ -201,6 +204,7 @@ function recordGame(broke) {
   for( var i = 0; i < lastFive.length; i++ ){
     lastFiveSum += lastFive[i];
   }
+  $("#statsBest").html(best);
   $("#statsAverage").html(average.toFixed(1) + "<br>(Last 5: " + (lastFiveSum/lastFive.length).toFixed(1) + ")");
   $("#statsBreaks").html(breaks + "<br>(" + Math.round(breaks / attempts * 100) + "%)")
 }
