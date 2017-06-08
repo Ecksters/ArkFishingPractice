@@ -197,8 +197,6 @@ function recordGame(broke) {
     best = currentPoint;
   }
   attempts++;
-      
-  console.log(average, attempts, currentPoint);
   average = ((average * (attempts-1)) + currentPoint) / attempts;
   var lastFive = currentData.filter(function(val){return val != 0;})
   lastFive = lastFive.slice(Math.max(lastFive.length - 5, 0));
