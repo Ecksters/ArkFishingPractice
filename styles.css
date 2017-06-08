@@ -1,0 +1,10 @@
+.newLetter {
+  text-shadow: 0 0 10px #000000;
+  transition: 500ms linear;
+}
+
+@keyframes letterGlow {
+  0%,100% { box-shadow: none; }
+  12.5%,37.5%,62.5%,87.5% { text-shadow: 0 0px 24px 0 rgba(255,255,255,0.9); }
+  25%,50%,75% { text-shadow: 0 0px 24px 0 rgba(0,0,0,0.9); }
+}
