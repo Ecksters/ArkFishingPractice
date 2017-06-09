@@ -144,7 +144,14 @@ function registerKeypress(key){
     startGame();
   }
   else if(String.fromCharCode(key.which).toLowerCase() == currentLetter){
-    challengeLetter();
+    $("#gameText").css("color", "green");
+    setTimeout(function(){
+      $("#gameText").css("color", "black");
+      if(seconds > 0) {
+        challengeLetter();
+      }
+    }, 250);
+    
     if($('#freePlay')[0].checked) {
       
     }
@@ -182,11 +189,6 @@ function registerKeypress(key){
 function challengeLetter() {
   currentLetter = letters[Math.floor((Math.random() * 9))];
   $("#gameText").text("Press " + currentLetter.toUpperCase());
-  $("#gameText").removeClass('newLetter');
-  setTimeout(function(){
-              $("#gameText").addClass('newLetter');
-         },0);
-  
 }
 
 function recordGame(broke) {
