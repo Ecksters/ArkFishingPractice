@@ -148,16 +148,13 @@ function registerKeypress(key){
     currentLetter = "";
     setTimeout(function(){
       $("#gameText").css("color", "black");
-      if(seconds > 0) {
+      if(seconds > 0 || $('#freePlay')[0].checked) {
         challengeLetter();
       }
     }, 250);
     
-    if($('#freePlay')[0].checked) {
-      
-    }
-    else {
-      currentPoint++;
+    currentPoint++;
+    if(!$('#freePlay')[0].checked) {
       updateLastDataPoint(currentData, currentPoint);
     }
   }
@@ -177,6 +174,7 @@ function registerKeypress(key){
     else {
       $('#gameTimer').html("<span style='color: red'>Line Broke after " + currentPoint + " pulls!</span>");
       $('#gameTimer').css('visibility', 'inherit');
+      currentPoint = 0;
       $("#gameTimer").removeClass('newLetter');
         setTimeout(function(){
                 $("#gameTimer").addClass('newLetter');
