@@ -145,6 +145,7 @@ function registerKeypress(key){
   }
   else if(String.fromCharCode(key.which).toLowerCase() == currentLetter){
     $("#gameText").css("color", "green");
+    currentLetter = "";
     setTimeout(function(){
       $("#gameText").css("color", "black");
       if(seconds > 0) {
